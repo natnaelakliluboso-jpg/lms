@@ -161,7 +161,7 @@ class CourseController extends Controller
     {
         $course = Course::where('slug', $id)->first();
         // First detach any user that was enrolled on the course
-        $course->users()->detach();
+        // $course->users()->detach();
         // Then delete the course
         $course->delete();
 
