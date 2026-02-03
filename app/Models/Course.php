@@ -44,4 +44,9 @@ class Course extends Model
     {
         return $this->hasMany(Enrollment::class)->where('status', 'pending');
     }
+
+    public function resources(): HasMany
+{
+    return $this->hasMany(CourseResource::class);
+}
 }

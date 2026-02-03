@@ -42,6 +42,13 @@
                                         <span class="text-sm text-yellow-600">⏳ {{ $pendingCount }} Pending</span>
                                     @endif
                                 </div>
+
+                                <div class="mt-4 flex justify-end">
+    <a href="{{ route('teacher.courses.resources.index', $course) }}"
+       class="text-sm text-blue-600 hover:underline">
+        Manage resources
+    </a>
+</div>
                                 
                                 @if($approvedStudents->count() > 0)
                                     <div class="mt-2">
