@@ -20,6 +20,7 @@
                             <th class="px-4 py-2">{{ __('ID') }}</th>
                             <th class="px-4 py-2">{{ __('Title') }}</th>
                             <th class="px-4 py-2">{{ __('Slug') }}</th>
+                            <th class="px-4 py-2">{{ __('Teacher') }}</th>
                             <th class="px-4 py-2">{{ __('Price') }}</th>
                             <th class="px-4 py-2">{{ __('Level') }}</th>
                             <th class="px-4 py-2">{{ __('Status') }}</th>
@@ -35,6 +36,7 @@
                                 <td class="px-4 py-2">{{ $course->id }}</td>
                                 <td class="px-4 py-2">{{ $course->title }}</td>
                                 <td class="px-4 py-2">{{ $course->slug }}</td>
+                                <td class="px-4 py-2">{{ optional($course->teacher)->name }}</td>
                                 <td class="px-4 py-2">{{ $course->price }}</td>
                                 <td class="px-4 py-2">{{ $course->level }}</td>
                                 <td class="px-4 py-2">{{ $course->status }}</td>

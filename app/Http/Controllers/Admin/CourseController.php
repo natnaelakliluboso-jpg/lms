@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
@@ -29,9 +30,12 @@ class CourseController extends Controller
      */
     public function create()
     {
+        $teachers = User::where('role', User::ROLE_TEACHER)->get();
+
         return view('admin.courses.create', [
             'course_levels' => config('enums.course_level'),
             'course_status' => config('enums.course_status'),
+            'teachers' => $teachers,
         ]);
     }
 
@@ -52,6 +56,7 @@ class CourseController extends Controller
             'audio' => ['required', 'string', 'max:255'],
             'subtitles' => ['required', 'string', 'max:255'],
             'access' => ['required', 'string', 'max:255'],
+            'teacher_id' => ['required', 'exists:users,id'],
         ]);
 
         $fileName = 'thumbnail.' . $request->imagePath->extension();
@@ -75,12 +80,13 @@ class CourseController extends Controller
         $course->audio = $request->audio;
         $course->subtitles = $request->subtitles;
         $course->access = $request->access;
+        $course->teacher_id = $request->teacher_id;
 
         //dd($course, $request);
 
         $course->save();
 
-        return Redirect::route('admin.courses')->with('message', 'Course created successfully');
+        return Redirect::route('dashboard')->with('message', 'Course created successfully');
     }
 
     /**
@@ -92,11 +98,14 @@ class CourseController extends Controller
 
         $lessons = $course->lessons()->paginate(10);
 
+        $teachers = User::where('role', User::ROLE_TEACHER)->get();
+
         return view('admin.courses.edit', [
             'course' => $course,
             'lessons' => $lessons,
             'course_levels' => config('enums.course_level'),
             'course_status' => config('enums.course_status'),
+            'teachers' => $teachers,
         ]);
     }
 
@@ -116,6 +125,7 @@ class CourseController extends Controller
             'status' => ['required', 'string', 'max:255'],
             'audio' => ['required', 'string', 'max:255'],
             'subtitles' => ['required', 'string', 'max:255'],
+            'teacher_id' => ['required', 'exists:users,id'],
         ]);
 
         $course = Course::where('slug', $id)->first();
@@ -162,6 +172,6 @@ class CourseController extends Controller
             File::deleteDirectory($folderPath);
         }
 
-        return Redirect::route('admin.courses')->with('message', 'Course deleted successfully');
+        return Redirect::route('dashboard')->with('message', 'Course deleted successfully');
     }
 }

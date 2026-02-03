@@ -53,6 +53,19 @@
             </div>
 
             <div>
+                <x-input-label for="teacher_id" :value="__('Teacher')" />
+                <select id="teacher_id" name="teacher_id" class="border border-gray-300 rounded-lg block w-full mt-1">
+                    <option value="">{{ __('Select a teacher') }}</option>
+                    @foreach ($teachers as $teacher)
+                        <option value="{{ $teacher->id }}" {{ old('teacher_id') == $teacher->id ? 'selected' : '' }}>
+                            {{ $teacher->name }} ({{ $teacher->email }})
+                        </option>
+                    @endforeach
+                </select>
+                <x-input-error class="mt-2" :messages="$errors->get('teacher_id')" />
+            </div>
+
+            <div>
                 <x-input-label for="level" :value="__('Level')" />
                 <select id="level" name="level" class=" border border-gray-300 rounded-lg block w-full mt-1">
                     @foreach ($course_levels as $course_level)
