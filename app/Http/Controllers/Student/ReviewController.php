@@ -57,7 +57,7 @@ class ReviewController extends Controller
         $review->rating = $request->rating;
         $review->save();
 
-        return Redirect::route('student.dashboard')->with('message', 'Review created successfully');
+        return Redirect::route('dashboard')->with('message', 'Review created successfully');
     }
 
     /**
@@ -111,7 +111,7 @@ class ReviewController extends Controller
         $review->rating = $request->rating;
         $review->save();
 
-        return Redirect::route('student.dashboard')->with('message', 'Review updated successfully');
+        return Redirect::route('dashboard')->with('message', 'Review updated successfully');
     }
 
     /**
@@ -123,6 +123,6 @@ class ReviewController extends Controller
         $this->authorize('delete', $review);
         $review->delete();
 
-        return Redirect::route('student.dashboard')->with('message', 'Review deleted successfully');
+        return Redirect::route('dashboard')->with('message', 'Review deleted successfully');
     }
 }

@@ -35,7 +35,7 @@
             {{-- LOGO --}}
             <div class="lg:w-full">
                 <div class="max-w-16 lg:max-w-24 lg:mx-auto">
-                    <a href="{{ route('student.dashboard') }}">
+                    <a href="{{ route('dashboard') }}">
                         <svg class="h-8 w-auto text-white lg:h-12 lg:text-[#FF2D20]" viewBox="0 0 62 65" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -56,7 +56,7 @@
                     {{-- LOGO IN CART FOR SMALL SCREENS --}}
                     <div class="hidden bg-secondary lg:w-full lg:flex lg:rounded-t-md py-2">
                         <div class="max-w-16 lg:max-w-20 lg:mx-auto">
-                            <a href="{{ route('student.dashboard') }}">
+                            <a href="{{ route('dashboard') }}">
                                 <svg class="h-8 w-auto text-white lg:h-12 lg:text-[#FF2D20]" viewBox="0 0 62 65"
                                     fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -68,7 +68,7 @@
                     </div>
                     {{-- GO TO DASHBOARD --}}
                     <div class="p-4 space-y-4">
-                        <a href="{{ route('student.dashboard') }}"
+                        <a href="{{ route('dashboard') }}"
                             class="flex items-center space-x-1 text-gray-600 fill-gray-600 text-xs hover:text-primary hover:fill-primary">
                             <svg version="1.1" viewBox="0 0 512 512" class="w-5">
                                 <path

@@ -4,7 +4,7 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Admin Panel') }}
             </h2>
-            <a href="{{ route('student.dashboard') }}"
+            <a href="{{ route('dashboard') }}"
                 class="bg-primary hover:bg-secondary px-4 py-2 font-semibold text-xs text-white uppercase rounded-md">
                 {{ __('Go to student dashboard') }}
             </a>

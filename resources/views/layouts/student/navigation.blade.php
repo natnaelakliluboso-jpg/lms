@@ -17,7 +17,7 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('student.dashboard')" :active="request()->routeIs('student.dashboard')">
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
@@ -87,7 +87,7 @@
     <div :class="{ 'block': open, 'hidden': !open }"
         class="hidden space-y-2 mt-4 mb-4 z-10 absolute bg-white w-full sm:hidden">
         <div>
-            <x-responsive-nav-link :href="route('student.dashboard')" :active="request()->routeIs('student.dashboard')">
+            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 <p class="text-center">{{ __('Dashboard') }}</p>
             </x-responsive-nav-link>
         </div>

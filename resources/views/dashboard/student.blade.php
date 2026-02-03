@@ -35,7 +35,10 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                             @forelse($availableCourses as $course)
                                 <div class="border rounded-lg p-4 hover:shadow-md transition-shadow">
-                                    <h3 class="font-semibold text-lg mb-2">{{ $course->title }}</h3>
+                                    <h3 class="font-semibold text-lg mb-2">
+                                        {{ $course->title }}
+                                    </h3>
+
                                     <p class="text-gray-600 text-sm mb-3">{{ Str::limit($course->description, 120) }}</p>
                                     <p class="text-sm text-gray-500 mb-3">👨‍🏫 {{ $course->teacher ? $course->teacher->name : 'Not assigned' }}</p>
                                     
@@ -48,9 +51,18 @@
                                             $enrollment = auth()->user()->enrollments()->where('course_id', $course->id)->first();
                                         @endphp
                                         @if($enrollment->status === 'pending')
-                                            <span class="inline-block bg-yellow-100 text-yellow-800 text-sm px-3 py-1 rounded-full">⏳ Pending Approval</span>
+                                            <span class="inline-block bg-yellow-100 text-yellow-800 text-sm px-3 py-1 rounded-full">
+                                                ⏳ Pending Approval
+                                            </span>
                                         @elseif($enrollment->status === 'approved')
                                             <span class="inline-block bg-green-100 text-green-800 text-sm px-3 py-1 rounded-full">✓ Enrolled</span>
+                                            <div class="mt-2">
+                                                <a href="{{ route('student.courses.show', $course->slug) }}"
+                                                   class="text-sm text-blue-600 hover:underline">
+                                                    View course & resources
+                                                </a>
+                                            </div>
+
                                         @else
                                             <span class="inline-block bg-red-100 text-red-800 text-sm px-3 py-1 rounded-full">❌ Denied</span>
                                         @endif
@@ -78,13 +90,15 @@
                         <h2 class="text-xl font-semibold mb-4">🎓 My Enrolled Courses</h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                             @foreach($enrolledCourses as $course)
-                                <div class="border rounded-lg p-4 bg-green-50 border-green-200">
+                                <a href="{{ route('student.courses.show', $course->slug) }}"
+                                   class="border rounded-lg p-4 bg-green-50 border-green-200 block hover:shadow-md transition-shadow">
                                     <h3 class="font-semibold text-lg mb-2">{{ $course->title }}</h3>
                                     <p class="text-gray-600 text-sm mb-3">{{ Str::limit($course->description, 100) }}</p>
                                     <p class="text-sm text-gray-500 mb-2">👨‍🏫 {{ $course->teacher ? $course->teacher->name : 'Not assigned' }}</p>
                                     <span class="inline-block bg-green-100 text-green-800 text-sm px-3 py-1 rounded-full">✓ Enrolled</span>
-                                </div>
+                                </a>
                             @endforeach
+
                         </div>
                     </div>
                     @endif

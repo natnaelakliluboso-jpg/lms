@@ -11,13 +11,16 @@ class CourseController extends Controller
   {
     $course = Course::where('slug', $id)->first();
 
-    $this->authorize('view', $course);
+    // $this->authorize('view', $course);
 
-    $lessons = $course->lessons()->getResults();
+    // $lessons = $course->lessons()->getResults();
+    $lessons = [];
+    $resources = $course->resources()->latest()->get();
 
     return view('student.courses.show', [
       'course' => $course,
       'lessons' => $lessons,
+      'resources' => $resources,
     ]);
   }
 }
