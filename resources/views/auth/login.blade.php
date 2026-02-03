@@ -9,16 +9,6 @@
             <!-- Session Status -->
             <x-auth-session-status class="mb-4" :status="session('status')" />
 
-            <!-- Demo Accounts -->
-            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-                <h4 class="text-sm font-medium text-blue-800 mb-2">Demo Accounts:</h4>
-                <div class="text-xs text-blue-600 space-y-1">
-                    <p><strong>Student:</strong> student1@lms.com / password</p>
-                    <p><strong>Teacher:</strong> teacher1@lms.com / password</p>
-                    <p><strong>Admin:</strong> admin@lms.com / password</p>
-                </div>
-            </div>
-
             <form method="POST" action="{{ route('login') }}" class="space-y-6">
                 @csrf
 
