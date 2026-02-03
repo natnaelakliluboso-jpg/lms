@@ -82,17 +82,23 @@
                         @csrf
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Course</label>
-                            <select name="course_id" class="w-full border rounded px-3 py-2" required>
+                            <select name="course_id" id="course-select" class="w-full border rounded px-3 py-2" required>
                                 <option value="">Select Course</option>
                                 @foreach(auth()->user()->teachingCourses as $course)
-                                    <option value="{{ $course->id }}">{{ $course->title }}</option>
+                                    <option value="{{ $course->id }}"
+                                            data-students='@json($course->students->map(fn($s) => ["id" => $s->id, "name" => $s->name, "email" => $s->email]))'>
+                                        {{ $course->title }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Student Email</label>
-                            <input type="email" name="student_email" class="w-full border rounded px-3 py-2" placeholder="student@example.com" required>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Student</label>
+                            <select name="student_id" id="student-select" class="w-full border rounded px-3 py-2" required>
+                                <option value="">Select a course first</option>
+                            </select>
                         </div>
+
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Assignment Name</label>
                             <input type="text" name="assignment_name" class="w-full border rounded px-3 py-2" required>
@@ -157,4 +163,46 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const courseSelect = document.getElementById('course-select');
+    const studentSelect = document.getElementById('student-select');
+
+    if (!courseSelect || !studentSelect) {
+        return;
+    }
+
+    function resetStudentSelect(placeholderText) {
+        studentSelect.innerHTML = '';
+        const placeholder = document.createElement('option');
+        placeholder.value = '';
+        placeholder.textContent = placeholderText;
+        studentSelect.appendChild(placeholder);
+    }
+
+    courseSelect.addEventListener('change', function () {
+        const selectedOption = this.options[this.selectedIndex];
+        const studentsData = selectedOption.dataset.students ? JSON.parse(selectedOption.dataset.students) : [];
+
+        if (!studentsData.length) {
+            resetStudentSelect('No enrolled students for this course');
+            return;
+        }
+
+        studentSelect.innerHTML = '';
+        const placeholder = document.createElement('option');
+        placeholder.value = '';
+        placeholder.textContent = 'Select Student';
+        studentSelect.appendChild(placeholder);
+
+        studentsData.forEach(function (student) {
+            const opt = document.createElement('option');
+            opt.value = student.id;
+            opt.textContent = student.name + ' (' + student.email + ')';
+            studentSelect.appendChild(opt);
+        });
+    });
+});
+</script>
 @endsection
